@@ -17,7 +17,34 @@ Golang log collection【Go实现日志tail】
 ![](ER.png)
 
 ### technology
-Golang,etcd,kafka,ElasticSearch,kibana
+Golang,etcd,kafka,ElasticSearch,kibana,nginx
+
+### error
+
+开发中有些坑要填一下
+
+1. go的一些包被墙的有点厉害，建议是有个VPN再去 go get 这样会很舒服
+尤其是 golang.org/x/ 下的包 不FQ下不来很头疼
+2. etcd安装和启动很简单
+安装：去 https://github.com/etcd-io/etcd/releases 找对应你的操作系统的安装包去下载即可
+启动：bin/etcd.exe
+想测试etcd 的key-value可以去找下栗子比较简单
+针对etcd简单介绍一下：我对它的理解就是分布式key-value存储，官方说是高可用的分布式这个还没体验到，之后慢慢探索，用于配置共享和服务发现(服务注册吧)，这个有点类似zookeeper，通过key来 Get 到value就好了
+3. kafka这块有个坑吧 gokrb5.v7这个包不是太好下 我直接上传了直接下载就行
+https://github.com/Shopify/sarama 用的是这个go写的kafka的库 和java的操作类似，也好懂，找个栗子看看就懂了，无非就是加载配置和sendMessage()
+4. ElasticSearch 这个应该都有用过，提一下如果要配置对应的kibana界面的话，二者的版本号要对应
+配置文件修改几处：
+1.elasticsearch-7.2.0-windows-x86_64 (1)\elasticsearch-7.2.0\config\elasticsearch.yml  中的  network.host: 127.0.0.1 //本地就设置本地的，服务器就设置服务器的
+因为es可以上集群，我这里没做集群，只要kafka做了集群
+es的默认端口是localhost:9200
+2.kibana 配置只要 把es的配置写进去就好，如下：
+elasticsearch.hosts: ["http://localhost:9200"]
+
+### 启动时：
+生产者在mian下的两个go文件，一起启动
+消费者在log_transfer下的两个go文件同样一起启动
+我用的是goland 用ctrl点住两个文件一起run就行
+如果用cmd的话 就一起 go build 一下，用.exe文件启动
 
 
 
