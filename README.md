@@ -34,10 +34,10 @@ Golang,etcd,kafka,ElasticSearch,kibana,nginx
 https://github.com/Shopify/sarama 用的是这个go写的kafka的库 和java的操作类似，也好懂，找个栗子看看就懂了，无非就是加载配置和sendMessage()
 4. ElasticSearch 这个应该都有用过，提一下如果要配置对应的kibana界面的话，二者的版本号要对应
 配置文件修改几处：
-  1.elasticsearch-7.2.0-windows-x86_64 (1)\elasticsearch-7.2.0\config\elasticsearch.yml  中的  network.host: 127.0.0.1 //本地就设置本地的，服务器就设置服务器的
+  - elasticsearch-7.2.0-windows-x86_64 (1)\elasticsearch-7.2.0\config\elasticsearch.yml  中的  network.host: 127.0.0.1 //本地就设置本地的，服务器就设置服务器的
   因为es可以上集群，我这里没做集群，只要kafka做了集群
   es的默认端口是localhost:9200
-  2.kibana 配置只要 把es的配置写进去就好，如下：
+  - kibana 配置只要 把es的配置写进去就好，如下：
   elasticsearch.hosts: ["http://localhost:9200"]
 
 ### 启动时：
